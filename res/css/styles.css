@@ -1,0 +1,78 @@
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+#Header-Logo {
+    max-width: 200px;
+    height: 92px;
+}
+
+header>nav>div {
+    max-width: 1440px;
+}
+
+#Buscador {
+    max-width: 600px;
+    margin: 0px auto;
+}
+
+#Pokemons {
+    width: 100%;
+    max-width: 1440px;
+    margin: 20px auto;
+    display: flex;
+    flex-flow: row wrap;
+    justify-content: space-around;
+}
+
+/*PRODUCTOS CARD*/
+.Card {
+    width: 300px;
+    margin: 20px;
+    background-color: #FFFFFF;
+    box-shadow: rgba(0, 0, 0, 0.4) 0px 2px 4px,
+        rgba(0, 0, 0, 0.3) 0px 7px 13px -3px, rgba(0, 0, 0, 0.2) 0px -3px 0px inset;
+}
+
+.Card-Header {
+    width: 100%;
+    height: 150px;
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: center;
+    background-image: url("data:image/svg+xml,%3csvg xmlns='http://www.w3.org/2000/svg' version='1.1' xmlns:xlink='http://www.w3.org/1999/xlink' xmlns:svgjs='http://svgjs.com/svgjs' width='300' height='150' preserveAspectRatio='none' viewBox='0 0 300 150'%3e%3cg mask='url(%26quot%3b%23SvgjsMask1035%26quot%3b)' fill='none'%3e%3cpath d='M150 146.26C168.35 145.8 183.86 134.82 197.15 122.15 210.83 109.08 223.26 93.85 224.71 75 226.25 54.83 219.78 33.84 204.96 20.04 190.55 6.62 169.65 4.34 150 5.52 131.7 6.62 113.7 12.78 101.29 26.29 89.35 39.29 86.35 57.33 86.2 75 86.05 92.86 88.51 111.26 100.43 124.57 112.93 138.54 131.26 146.72 150 146.26' fill='rgba(254%2c 182%2c 5%2c 1)'%3e%3c/path%3e%3cpath d='M150 107.39C158.34 107.18 165.39 102.19 171.43 96.43 177.65 90.49 183.3 83.57 183.96 75 184.66 65.83 181.72 56.29 174.98 50.02 168.43 43.92 158.93 42.88 150 43.42 141.68 43.92 133.5 46.72 127.86 52.86 122.43 58.77 121.07 66.97 121 75 120.93 83.12 122.05 91.48 127.47 97.53 133.15 103.88 141.48 107.6 150 107.39' fill='rgba(255%2c 215%2c 0%2c 1)'%3e%3c/path%3e%3c/g%3e%3cdefs%3e%3cmask id='SvgjsMask1035'%3e%3crect width='300' height='150' fill='white'%3e%3c/rect%3e%3c/mask%3e%3c/defs%3e%3c/svg%3e");
+    background-position: center center;
+    overflow: hidden;
+}
+
+.Card-Main {
+    width: 100%;
+    padding: 5px;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    text-align: center;
+}
+
+.Card-Main h3{
+    font-size: 1.2rem;
+}
+
+.Card-Main h4{
+    font-size: 0.8rem;
+}
+
+.Card-Footer {
+    height: 100px;
+    padding: 5px;
+    font-size: 1rem;
+}
+
+@media (max-width: 425px) {
+    #Buscador {
+        width: 90%;
+    }
+}
