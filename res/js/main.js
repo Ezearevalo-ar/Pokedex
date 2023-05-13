@@ -87,7 +87,7 @@ window.addEventListener("DOMContentLoaded", (e) => {
         //Card Main
         cardMain.className = "Card-Main";
         cardMainName.textContent = `${data.name}`;
-        cardMainID.textContent = `${data.id}`;
+        cardMainID.textContent = `#0${data.id}`;
 
         //Card Footer
         cardFooter.className = "Card-Footer";
@@ -98,7 +98,7 @@ window.addEventListener("DOMContentLoaded", (e) => {
             addFavorite(data.id);
         });
         cardFooterRemoveBtn.className = "bi bi-x-circle";
-        cardFooterRemoveBtn.id = `Numero: #00${data.id}`;
+        cardFooterRemoveBtn.id = `${data.id}`;
         //Enviamos el id del pokemon que queremos eliminar de nuestros favoritos y se envia a la función removeFavorites que se encarga de todo eso
         cardFooterRemoveBtn.addEventListener("click", (e) => {
             removeFavorite(data.id);
@@ -107,16 +107,16 @@ window.addEventListener("DOMContentLoaded", (e) => {
         });
 
         //Enviamos cada sección de la card a su respectivo lugar y la card a su contenedor
-        cardHeader.appendChild(cardHeaderImg);
-        cardMain.appendChild(cardMainName);
-        cardMain.appendChild(cardMainID);
-        cardFooter.appendChild(cardFooterAddBtn);
-        cardFooter.appendChild(cardFooterRemoveBtn);
+        cardHeader.appendChild(cardHeaderImg); //Enviamos la imagen dentro del cardHeader
+        cardMain.appendChild(cardMainName); //Enviamos el nombre del pokemon dentro del cardMain
+        cardMain.appendChild(cardMainID); //Enviamos el id del pokemon dentro del cardMain
+        cardFooter.appendChild(cardFooterAddBtn); //Enviamos el Button de añadir a favoritos dentro del cardFooter
+        cardFooter.appendChild(cardFooterRemoveBtn); //Enviamos el Button de eliminar de favoritos dentro del cardFooter
 
-        card.appendChild(cardHeader);
-        card.appendChild(cardMain);
-        card.appendChild(cardFooter);
-        CardContainer.appendChild(card);
+        card.appendChild(cardHeader); //Integramos el cardHeader final en la card
+        card.appendChild(cardMain); //Integramos el cardMain final en la card
+        card.appendChild(cardFooter); //Integramos el cardFooter final en la card
+        CardContainer.appendChild(card); //Enviamos la card terminada dentro del contenedor que contendrá todas las demas cards
     }
 
     /**
