@@ -69,7 +69,7 @@ window.addEventListener("DOMContentLoaded", (e) => {
                 crearCard(data);
             })
             .catch((error) => {
-                console.error(error);
+                console.log(error);
                 ErrorSearch();
             });
     }
@@ -152,7 +152,7 @@ window.addEventListener("DOMContentLoaded", (e) => {
         // Verificamos si el Pokemon no está incluido en la lista de favoritos del localstorage
         if (!favorito.includes(ID)) {
             favorito.push(ID); // Agregamos al localstorage pusheando el ID del Pokemon a la lista de favoritos, el ID se agrega al final del array
-            //TODO hacer que se array guarde los items por orden numerico
+            //TODO hacer que se array guarde los items por orden numerico para lograr una generación en orden de las cards
             localStorage.setItem("favoritos", JSON.stringify(favorito)); // Guardamos los pokemons seleccionados como favoritos en el localstorage y lo mandamos como string mediante stringify
             console.warn("El pokemon fue agregado a favoritos!");
         } else {
@@ -175,4 +175,45 @@ window.addEventListener("DOMContentLoaded", (e) => {
             console.error("El Pokemon no se encuentra en tus favoritos!");
         }
     }
+    
+    /** 
+     *
+     * 
+     * 
+     * 
+    **/
+   function ErrorSearch() {
+        //Creamos la card que contendrá a nuestros pokemons
+        let card = d.createElement("div");
+        //Creamos la sección dentro de la card que contendrá la imagen del pokemon
+        let cardHeader = d.createElement("div");
+        let cardHeaderImg = d.createElement("img");
+        //Creamos la sección dentro de la card que contendrá el nombre y ID del pokemon
+        let cardMain = d.createElement("div");
+        let cardMainName = d.createElement("h3");
+        let cardMainID = d.createElement("h4");
+
+        //Modificamos al detalle el header de la card y sus contenidos
+        //Card
+        card.className = "Card";
+        //Card Header
+        cardHeader.className = "Card-Header";
+        cardHeaderImg.src = "./res/img/error/Error404.png";
+        cardHeaderImg.alt = "Error al encontrar el pokemon en la busqueda";
+        cardHeaderImg.loading = "lazy";
+
+        //Card Main
+        cardMain.className = "Card-Main";
+        cardMainName.textContent = "Pokemon no existente!";
+        cardMainID.textContent = "Numero: #404";
+
+        //Enviamos cada sección de la card a su respectivo lugar y la card a su contenedor
+        cardHeader.appendChild(cardHeaderImg); //Enviamos la imagen dentro del cardHeader
+        cardMain.appendChild(cardMainName); //Enviamos el nombre del pokemon dentro del cardMain
+        cardMain.appendChild(cardMainID); //Enviamos el id del pokemon dentro del cardMain
+
+        card.appendChild(cardHeader); //Integramos el cardHeader final en la card
+        card.appendChild(cardMain); //Integramos el cardMain final en la card
+        CardContainer.appendChild(card); //Enviamos la card terminada dentro del contenedor que contendrá todas las demas cards
+   }
 });
