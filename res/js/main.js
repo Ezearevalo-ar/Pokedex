@@ -98,7 +98,7 @@ window.addEventListener("DOMContentLoaded", (e) => {
             addFavorite(data.id);
         });
         cardFooterRemoveBtn.className = "bi bi-x-circle";
-        cardFooterRemoveBtn.id = `${data.id}`;
+        cardFooterRemoveBtn.id = `Numero: #00${data.id}`;
         //Enviamos el id del pokemon que queremos eliminar de nuestros favoritos y se envia a la función removeFavorites que se encarga de todo eso
         cardFooterRemoveBtn.addEventListener("click", (e) => {
             removeFavorite(data.id);
