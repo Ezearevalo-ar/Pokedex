@@ -148,9 +148,12 @@ window.addEventListener("DOMContentLoaded", (e) => {
         let favorito = JSON.parse(localStorage.getItem("favoritos")) || [];
         
         //TODO Añadir una acción o alerta cuando se agrega a favorito y si ya está agregado
+        
+        // Verificamos si el Pokemon no está incluido en la lista de favoritos del localstorage
         if (!favorito.includes(ID)) {
-            favorito.push(ID);
-            localStorage.setItem("favoritos", JSON.stringify(favorito));
+            favorito.push(ID); // Agregamos al localstorage pusheando el ID del Pokemon a la lista de favoritos, el ID se agrega al final del array
+            //TODO hacer que se array guarde los items por orden numerico
+            localStorage.setItem("favoritos", JSON.stringify(favorito)); // Guardamos los pokemons seleccionados como favoritos en el localstorage y lo mandamos como string mediante stringify
             console.warn("El pokemon fue agregado a favoritos!");
         } else {
             console.error("El pokemon ya se encuentra en tus favoritos!");
@@ -163,9 +166,10 @@ window.addEventListener("DOMContentLoaded", (e) => {
     function removeFavorito(ID) {
         let favorito = JSON.parse(localStorage.getItem("favoritos")) || [];
     
+        // Verificamos si el Pokemon está incluido en la lista de favoritos del localstorage
         if (favorito.includes(ID)) {
-            favorito = favorito.filter((favoritoID) => favoritoID !== ID);
-            localStorage.setItem("favoritos", JSON.stringify(favorito));
+            favorito = favorito.filter((favoritoID) => favoritoID !== ID); // Filtramos el localstorage y buscamos el ID deseado para eliminarlo
+            localStorage.setItem("favoritos", JSON.stringify(favorito)); // Actualizamos los pokemons seleccionados como favoritos en el localstorage
             console.warn("El Pokemon fue eliminado de favoritos!");
         } else {
             console.error("El Pokemon no se encuentra en tus favoritos!");
