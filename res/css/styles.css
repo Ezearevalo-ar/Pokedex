@@ -1,16 +1,22 @@
+/*Ajustes Generales*/
 * {
     margin: 0;
     padding: 0;
     box-sizing: border-box;
 }
 
-#Header-Logo {
-    max-width: 200px;
-    height: 92px;
+html{
+    scroll-behavior: smooth;
 }
 
-header>nav>div {
+/*Header del sitio*/
+#Container-Nav {
     max-width: 1440px;
+}
+
+/*Main del sitio*/
+main{
+    min-height: 66.999vh;
 }
 
 #Buscador {
@@ -67,12 +73,19 @@ header>nav>div {
 
 .Card-Footer {
     height: 100px;
-    padding: 5px;
-    font-size: 1rem;
+    display: flex;
+    align-items: center;
+    justify-content: space-evenly;    
 }
 
-@media (max-width: 425px) {
+.Card-Footer > button{
+    border: none;
+    background: none;
+}
+
+/*Ajustes del sitio*/
+@media (max-width: 450px) {
     #Buscador {
-        width: 90%;
+        width: 85%;
     }
 }
