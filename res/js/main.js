@@ -1,9 +1,12 @@
 "use strict";
 
 window.addEventListener("DOMContentLoaded", (e) => {
-    //Registramos el service worker
+    
+    //Inicio del registro de nuestro service worker
+    //Primero verificamos si el navegador acepta service worker 
     if ("serviceWorker" in navigator) {
         navigator.serviceWorker
+            //Si el navegador soporta service worker, le registramos nuestro archivo service worker.js o sw.js en este caso
             .register("sw.js")
             .then((registration) => {
                 console.log(registration);
@@ -12,6 +15,7 @@ window.addEventListener("DOMContentLoaded", (e) => {
                 console.error(rejected);
             });
     }
+    //Fin del registro de nuestro service worker
 
     const d = document;
 
