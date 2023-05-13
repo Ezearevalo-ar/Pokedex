@@ -34,6 +34,7 @@ window.addEventListener("DOMContentLoaded", (e) => {
         }
     }
     generarPokemons(21);
+    
     /**
      * Está función lo que hace es recibir un parametro ID que está seleccionado en un bucle for para mostrar mas de 1 pokemon al ingresar al sitio este parametro puede modificarse para mostrar mas o menos pokemons según se desee
      *
@@ -100,7 +101,7 @@ window.addEventListener("DOMContentLoaded", (e) => {
         cardFooterRemoveBtn.id = `${data.id}`;
         //Enviamos el id del pokemon que queremos eliminar de nuestros favoritos y se envia a la función removeFavorites que se encarga de todo eso
         cardFooterRemoveBtn.addEventListener("click", (e) => {
-            removeFavorites(data.id);
+            removeFavorite(data.id);
             //Eliminamos la card del pokemon deseado en el DOM | Solucionar el error de eliminar cards del DOM inicial, posible solución uso de banderitas
             card.remove();
         });
@@ -116,5 +117,20 @@ window.addEventListener("DOMContentLoaded", (e) => {
         card.appendChild(cardMain);
         card.appendChild(cardFooter);
         CardContainer.appendChild(card);
+    }
+
+    /**
+     * Está función se encargará de recibir un parametro ID y una vez se haga click en un pokemon especifico será almacenado en el local storge  del sitio el pokemon y sus propiedades, nombre, id, imagen
+     * 
+    **/
+    function addFavorite(ID) {
+        
+    }
+    
+    /**
+     * Está función se encargará de recibir un parametro ID y una vez se haga click en un pokemon especifico será eliminado del array que se encuentrá en local storge, y a su vez eliminará la card del sitio en la sección de favoritos
+    **/
+    function removeFavorite(ID) {
+        
     }
 });
