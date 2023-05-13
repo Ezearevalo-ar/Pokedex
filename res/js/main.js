@@ -17,6 +17,26 @@ window.addEventListener("DOMContentLoaded", (e) => {
 
     const search = d.getElementById("search-input");
     const searchBtn = d.getElementById("button-addon2");
+    searchBtn.addEventListener('click', (e) => {
+        e.preventDefault();
+        
+        if (search.value.trim() === "" || search.value < 0) {
+            return false;
+        } else{
+            CardContainer.innerHTML = "";
+            consumirApi(search.value);
+            return true;
+        }
+    });
+    
+    const favoritosBTN = d.getElementById("fav-button");
+    favoritosBTN.addEventListener('click', (e) => {
+        let favoritos = JSON.parse(localStorage.getItem("favoritos")) || [];
+        CardContainer.innerHTML = "";
+        for (const ID of favoritos) {
+            consumirApi(ID);
+        }
+    });
 
     //Selecionamos el contenedor de nuestras cards
     const CardContainer = d.getElementById("Pokemons");
@@ -26,7 +46,7 @@ window.addEventListener("DOMContentLoaded", (e) => {
      *
      * Luego de recibir y recorrer está cantidad deseada es enviado a la función consumirApi, lo cual hará que está funcion busque a ese pokemon y lo mande a la función crearCard que se encargará de crear la card y enviarla al documento HTML
      *
-     * PROXIMAMENTE: añadir funcionalidad de modificar este valor desde el sitio
+     * //TODO PROXIMAMENTE: añadir funcionalidad de modificar este valor desde el sitio
      **/
     function generarPokemons(cantidad) {
         for (let i = 1; i < cantidad; i++) {
@@ -87,22 +107,24 @@ window.addEventListener("DOMContentLoaded", (e) => {
         //Card Main
         cardMain.className = "Card-Main";
         cardMainName.textContent = `${data.name}`;
-        cardMainID.textContent = `#0${data.id}`;
+        cardMainID.textContent = `#0${data.id}`; //TODO Investigar la forma de añadir el #000 dependiendo el pokemon de forma dinamica
 
         //Card Footer
         cardFooter.className = "Card-Footer";
         cardFooterAddBtn.className = "bi bi-heart";
         cardFooterAddBtn.id = `${data.id}`;
-        //Enviamos el id del pokemon que queremos añadir a nuestros favoritos y se envia a la función addFavorite que se encarga de todo eso
+        //Enviamos el id del pokemon que queremos añadir a nuestros favoritos y se envia a la función addFavorito que se encarga de todo eso
         cardFooterAddBtn.addEventListener("click", (e) => {
-            addFavorite(data.id);
+            addFavorito(data.id);
         });
+        //TODO Solucionar el error de eliminar cards del DOM inicial, posible solución uso de banderitas u otra página aparte para mostrar este contenido
+        //TODO Realizar un recoded del sitio usando PHP y MYSQL, cambiar el formato de las imagenes en webp
         cardFooterRemoveBtn.className = "bi bi-x-circle";
         cardFooterRemoveBtn.id = `${data.id}`;
-        //Enviamos el id del pokemon que queremos eliminar de nuestros favoritos y se envia a la función removeFavorites que se encarga de todo eso
+        //Enviamos el id del pokemon que queremos eliminar de nuestros favoritos y se envia a la función removeFavoritos que se encarga de todo eso
         cardFooterRemoveBtn.addEventListener("click", (e) => {
-            removeFavorite(data.id);
-            //Eliminamos la card del pokemon deseado en el DOM | Solucionar el error de eliminar cards del DOM inicial, posible solución uso de banderitas
+            removeFavorito(data.id);
+            //Eliminamos la card del pokemon deseado en el DOM
             card.remove();
         });
 
@@ -121,16 +143,32 @@ window.addEventListener("DOMContentLoaded", (e) => {
 
     /**
      * Está función se encargará de recibir un parametro ID y una vez se haga click en un pokemon especifico será almacenado en el local storge  del sitio el pokemon y sus propiedades, nombre, id, imagen
-     * 
     **/
-    function addFavorite(ID) {
+    function addFavorito(ID) {
+        let favorito = JSON.parse(localStorage.getItem("favoritos")) || [];
         
+        //TODO Añadir una acción o alerta cuando se agrega a favorito y si ya está agregado
+        if (!favorito.includes(ID)) {
+            favorito.push(ID);
+            localStorage.setItem("favoritos", JSON.stringify(favorito));
+            console.warn("El pokemon fue agregado a favoritos!");
+        } else {
+            console.error("El pokemon ya se encuentra en tus favoritos!");
+        }
     }
     
     /**
      * Está función se encargará de recibir un parametro ID y una vez se haga click en un pokemon especifico será eliminado del array que se encuentrá en local storge, y a su vez eliminará la card del sitio en la sección de favoritos
     **/
-    function removeFavorite(ID) {
-        
+    function removeFavorito(ID) {
+        let favorito = JSON.parse(localStorage.getItem("favoritos")) || [];
+    
+        if (favorito.includes(ID)) {
+            favorito = favorito.filter((favoritoID) => favoritoID !== ID);
+            localStorage.setItem("favoritos", JSON.stringify(favorito));
+            console.warn("El Pokemon fue eliminado de favoritos!");
+        } else {
+            console.error("El Pokemon no se encuentra en tus favoritos!");
+        }
     }
 });
