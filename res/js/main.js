@@ -98,10 +98,13 @@ window.addEventListener("DOMContentLoaded", (e) => {
         //Modificamos al detalle el header de la card y sus contenidos
         //Card
         card.className = "Card";
+        
         //Card Header
         cardHeader.className = "Card-Header";
         cardHeaderImg.src = data.sprites.front_default;
         cardHeaderImg.alt = `Imagen del Pokemon ${data.name}`;
+        cardHeaderImg.width = 96;
+        cardHeaderImg.height = 96;
         cardHeaderImg.loading = "lazy";
 
         //Card Main
@@ -112,7 +115,7 @@ window.addEventListener("DOMContentLoaded", (e) => {
         //Card Footer
         cardFooter.className = "Card-Footer";
         cardFooterAddBtn.className = "bi bi-heart";
-        cardFooterAddBtn.id = `${data.id}`;
+        cardFooterAddBtn.ariaLabel = `${data.id}`;
         //Enviamos el id del pokemon que queremos añadir a nuestros favoritos y se envia a la función addFavorito que se encarga de todo eso
         cardFooterAddBtn.addEventListener("click", (e) => {
             addFavorito(data.id);
@@ -120,7 +123,7 @@ window.addEventListener("DOMContentLoaded", (e) => {
         //TODO Solucionar el error de eliminar cards del DOM inicial, posible solución uso de banderitas u otra página aparte para mostrar este contenido
         //TODO Realizar un recoded del sitio usando PHP y MYSQL, cambiar el formato de las imagenes en webp
         cardFooterRemoveBtn.className = "bi bi-x-circle";
-        cardFooterRemoveBtn.id = `${data.id}`;
+        cardFooterRemoveBtn.ariaLabel = `${data.id}`;
         //Enviamos el id del pokemon que queremos eliminar de nuestros favoritos y se envia a la función removeFavoritos que se encarga de todo eso
         cardFooterRemoveBtn.addEventListener("click", (e) => {
             removeFavorito(data.id);
@@ -196,9 +199,10 @@ window.addEventListener("DOMContentLoaded", (e) => {
         //Modificamos al detalle el header de la card y sus contenidos
         //Card
         card.className = "Card";
+        
         //Card Header
         cardHeader.className = "Card-Header";
-        cardHeaderImg.src = "./res/img/error/Error404.png";
+        cardHeaderImg.src = "./res/img/error/Error404.webp";
         cardHeaderImg.alt = "Error al encontrar el pokemon en la busqueda";
         cardHeaderImg.loading = "lazy";
 
