@@ -4,13 +4,13 @@ const cacheName = "pwa-cache-files";
 // En este array guardaremos los recursos que quisiera almacener en el pre caching
 const assets = [
   "./index.html",
+  "./res/img/logo/logo.webp",
   "https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha3/dist/css/bootstrap.min.css",
   "https://cdn.jsdelivr.net/npm/bootstrap-icons@1.10.5/font/bootstrap-icons.css",
-  "./res/css/styles.css",
   "https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha3/dist/js/bootstrap.bundle.min.js",
-  "./res/js/main.js",
-  "./res/img/logo/logo.webp",
   "./res/img/fondo/fondo.svg",
+  "./res/js/main.js",
+  "./res/css/styles.css",
 ];
 //Instalación del service worker
 self.addEventListener("install", (e) => {
@@ -44,7 +44,7 @@ self.addEventListener("fetch", (e) => {
       if (response) {
         return response;
       }
-      //De no tener contenido
+      //De no tener contenido se le pide al servidor para que intente obtenerlo nuevamente
       return fetch(e.request);
     })
   );

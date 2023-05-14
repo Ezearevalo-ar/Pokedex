@@ -19,24 +19,32 @@ window.addEventListener("DOMContentLoaded", (e) => {
 
     const d = document;
 
+    //Obtenemos los botones del buscador y el contenido del input que el usuario desea buscar
     const search = d.getElementById("search-input");
     const searchBtn = d.getElementById("button-addon2");
+    //Al hacer click en el Button de buscar, evitamos que se ejecute su acción default 
     searchBtn.addEventListener('click', (e) => {
         e.preventDefault();
-        
+        //Aquí añadimos una verifiación en el input, si el usuario ingresa un valor vació o un numeró de ID 0 o negativo no hará nada ya que no existe este tipo de pokemons
         if (search.value.trim() === "" || search.value < 0) {
             return false;
         } else{
+            //En caso de que el valor sea valido, se limpiara el contenido de las cards anteriormente cargadas de forma default, y se enviará como resultado una card unicá con el valor que el usuario estaba buscando
             CardContainer.innerHTML = "";
+            //Se envia a la función consumirAPI el valor que el usuario quiere investigar, ya sea por nombre o ID
             consumirApi(search.value);
             return true;
         }
     });
     
+    //Obtenemos el boton de favoritos que se encuentra al lado del input de buscar
     const favoritosBTN = d.getElementById("fav-button");
+    //Al hacer click en este boton de favoritos se ejectuará una función para recibir los datos del localstorage y enviarlo a la función consumir API, donde se hará el recorrido de esos valores para luego crear las cards con los datos que esten guardados en el localstorage del sitio
     favoritosBTN.addEventListener('click', (e) => {
         let favoritos = JSON.parse(localStorage.getItem("favoritos")) || [];
+        //Una vez obtenemos los datos del localstorage borramos el contenido del contenedor, incluyendo cards generadas anteriormente para luego generar los favoritos
         CardContainer.innerHTML = "";
+         // Realizamos una iterar sobre cada ID de favorito enviandolo a la función consumir API
         for (const ID of favoritos) {
             consumirApi(ID);
         }
@@ -185,8 +193,8 @@ window.addEventListener("DOMContentLoaded", (e) => {
     
     /** 
      *
-     * 
-     * 
+     * En está función nos encargamos de crear una card, distinta con ciertas cosas no tan dinamicas sin utilizar la API para mostrarla como mensaje de error al resultado de busqueda
+     * //TODO Integrar una función mas dinamica, mensajes de error, de agregado a favoritos, de eliminado, si ya existe en favoritos y si ya fue eliminado
      * 
     **/
    function ErrorSearch() {
