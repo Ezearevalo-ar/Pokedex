@@ -3,15 +3,15 @@
 const cacheName = "pwa-cache-files";
 // En este array guardaremos los recursos que quisiera almacener en el pre caching
 const assets = [
-  "./index.html",
-  "./res/img/logo/logo.webp",
+  "/index.html",
+  "/manifest.webmanifest",
   "https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha3/dist/css/bootstrap.min.css",
   "https://cdn.jsdelivr.net/npm/bootstrap-icons@1.10.5/font/bootstrap-icons.css",
   "https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha3/dist/js/bootstrap.bundle.min.js",
+  "./res/img/logo/logo.webp",
   "./res/img/fondo/fondo.svg",
   "./res/js/main.js",
   "./res/css/styles.css",
-  "./manifest.webmanifest",
 ];
 //Instalación del service worker
 self.addEventListener("install", (e) => {
