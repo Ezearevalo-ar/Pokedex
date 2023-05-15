@@ -7,7 +7,7 @@ window.addEventListener("DOMContentLoaded", (e) => {
     if ("serviceWorker" in navigator) {
         navigator.serviceWorker
             //Si el navegador soporta service worker, le registramos nuestro archivo service worker.js o sw.js en este caso
-            .register("sw.js")
+            .register("../../sw.js")
             .then((registration) => {
                 console.log(registration);
             })
