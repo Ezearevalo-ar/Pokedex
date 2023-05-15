@@ -11,6 +11,7 @@ const assets = [
   "./res/img/fondo/fondo.svg",
   "./res/js/main.js",
   "./res/css/styles.css",
+  "./manifest.webmanifest",
 ];
 //Instalación del service worker
 self.addEventListener("install", (e) => {
