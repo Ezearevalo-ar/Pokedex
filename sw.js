@@ -22,10 +22,10 @@ self.addEventListener("install", (e) => {
   //Utilizamos el waitUntil dentro del install para que cuando terminé la instalación ya tengamos nuestros recursos deseados almacenados en el cache del sitio
   e.waitUntil(
     //Si existe el cache con ese nombre, lo usa y si no fuera asi lo crea de 0
-    caches.open(cacheName).then(function (cache) {
-      cache.addAll(assets);
-    })
-  );
+      caches.open(cacheName).then(function (cache) {
+        return cache.addAll(assets);
+      })
+    );
   console.log("Service Worker Instalado! ", e);
 });
 
