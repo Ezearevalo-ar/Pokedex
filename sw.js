@@ -5,9 +5,6 @@ const cacheName = "pwa-cache-files";
 const assets = [
   "/index.html",
   "/manifest.webmanifest",
-  "https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha3/dist/css/bootstrap.min.css",
-  "https://cdn.jsdelivr.net/npm/bootstrap-icons@1.10.5/font/bootstrap-icons.css",
-  "https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha3/dist/js/bootstrap.bundle.min.js",
   "./res/img/logo/logo.webp",
   "./res/img/fondo/fondo.svg",
   "./res/js/main.js",
@@ -26,17 +23,17 @@ self.addEventListener("install", (e) => {
         return cache.addAll(assets);
       })
     );
-  console.log("Service Worker Instalado! ", e);
+  // console.log("Service Worker Instalado! ", e);
 });
 
 // Activación del Service Worker
 self.addEventListener("activate", (e) => {
-  console.log("Service Worker Activado! ", e);
+  // console.log("Service Worker Activado! ", e);
 });
 
 // Capturamos las peticiones de la interfaz
 self.addEventListener("fetch", (e) => {
-  console.log("Request", e);
+  // console.log("Request", e);
   //Utilizaremos está propiedad para proveer una respuesta al fetch
   e.respondWith(
     //Revisamos si el recurso pedido está en el cache del service worker
@@ -50,3 +47,42 @@ self.addEventListener("fetch", (e) => {
     })
   );
 });
+
+self.addEventListener("push", (e) => {
+  // console.log(e.data.text());
+
+  let data = JSON.parse(e.data.text());
+  console.log(data);
+  let title = data[0].title;
+  let body = data[0].body;
+  let options = {
+    body: body,
+    icon: './res/img/favicon-32x32.png',
+    vibrate: [600,100,600],
+    tag: 1,
+    actions: [{
+              action:1,
+              icon:'./res/img/favicon-32x32.png', 
+              title: 'Acceder a la app'
+            },
+            {
+              action:2,
+              icon:'./res/img/favicon-32x32.png', 
+              title: 'No Acceder a la app'
+            },],
+  };
+
+  e.waitUntil(
+    self.registration.showNotification(title, options)
+  );
+});
+
+self.addEventListener('notificationclick', event => {
+  if (event.action==1) {
+    console.log('El usuario quiere acceder');
+    clients.window.open("https://google.com", "_self")
+  } else{
+    console.log('El no usuario quiere acceder');
+  }
+  event.notification.close();
+})

@@ -13,116 +13,31 @@
     
     <!--Favicon-->
     <!--Sitio utilizado para la creación de los favicons (https://www.favicon-generator.org/)-->
-    <link rel="apple-touch-icon" sizes="57x57" href="./res/img/favicon/apple-icon-57x57.png">
-    <link rel="apple-touch-icon" sizes="60x60" href="./res/img/favicon/apple-icon-60x60.png">
-    <link rel="apple-touch-icon" sizes="72x72" href="./res/img/favicon/apple-icon-72x72.png">
-    <link rel="apple-touch-icon" sizes="76x76" href="./res/img/favicon/apple-icon-76x76.png">
-    <link rel="apple-touch-icon" sizes="114x114" href="./res/img/favicon/apple-icon-114x114.png">
-    <link rel="apple-touch-icon" sizes="120x120" href="./res/img/favicon/apple-icon-120x120.png">
-    <link rel="apple-touch-icon" sizes="144x144" href="./res/img/favicon/apple-icon-144x144.png">
-    <link rel="apple-touch-icon" sizes="152x152" href="./res/img/favicon/apple-icon-152x152.png">
-    <link rel="apple-touch-icon" sizes="180x180" href="./res/img/favicon/apple-icon-180x180.png">
-    <link rel="icon" type="image/png" sizes="192x192"  href="./res/img/favicon/android-icon-192x192.png">
-    <link rel="icon" type="image/png" sizes="32x32" href="./res/img/favicon/favicon-32x32.png">
-    <link rel="icon" type="image/png" sizes="96x96" href="./res/img/favicon/favicon-96x96.png">
-    <link rel="icon" type="image/png" sizes="16x16" href="./res/img/favicon/favicon-16x16.png">
+    <link rel="apple-touch-icon" sizes="57x57" href="./res/img/icons/apple-icon-57x57.webp">
+    <link rel="apple-touch-icon" sizes="60x60" href="./res/img/icons/apple-icon-60x60.webp">
+    <link rel="apple-touch-icon" sizes="72x72" href="./res/img/icons/apple-icon-72x72.webp">
+    <link rel="apple-touch-icon" sizes="76x76" href="./res/img/icons/apple-icon-76x76.webp">
+    <link rel="apple-touch-icon" sizes="114x114" href="./res/img/icons/apple-icon-114x114.webp">
+    <link rel="apple-touch-icon" sizes="120x120" href="./res/img/icons/apple-icon-120x120.webp">
+    <link rel="apple-touch-icon" sizes="144x144" href="./res/img/icons/apple-icon-144x144.webp">
+    <link rel="apple-touch-icon" sizes="152x152" href="./res/img/icons/apple-icon-152x152.webp">
+    <link rel="apple-touch-icon" sizes="180x180" href="./res/img/icons/apple-icon-180x180.webp">
+    <link rel="icon" type="image/webp" sizes="192x192"  href="./res/img/icons/android-icon-192x192.webp">
+    <link rel="icon" type="image/webp" sizes="32x32" href="./res/img/icons/favicon-32x32.webp">
+    <link rel="icon" type="image/webp" sizes="96x96" href="./res/img/icons/favicon-96x96.webp">
+    <link rel="icon" type="image/webp" sizes="16x16" href="./res/img/icons/favicon-16x16.webp">
     
     <!--Manifiesto para la PWA-->
     <!--Sitio utilizado para la creación del manifiesto (https://www.simicart.com/manifest-generator.html/)-->
     <link rel="manifest" href="manifest.webmanifest">
     <meta name="msapplication-TileColor" content="#f5a623">
-    <meta name="msapplication-TileImage" content="./res/img/favicon/icon-192x192.png">
+    <meta name="msapplication-TileImage" content="./res/img/icons/icon-192x192.webp">
     <meta name="theme-color" content="#f5a623">
-
-    <!-- Bootstrap CSS -->
-    <link  rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha3/dist/css/bootstrap.min.css">
-
-    <!-- Bootstrap Icons -->
-    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.10.5/font/bootstrap-icons.css">
 
     <!-- Custom Styles -->
     <link rel="stylesheet" href="./res/css/styles.css">
 </head>
 <body>
     
-    <!--Inicio del header-->
-    <header>
-        <!--Inicio del menú de navegación-->
-        <nav class="navbar navbar-expand-lg bg-body-tertiary">
-            <!--Contenedor de la navegación-->
-            <div class="container-fluid" id="Container-Nav">
-                <!--Logo del sitio-->
-                <a class="navbar-brand" href="./index.html">
-                    <img src="./res/img/logo/logo.webp" alt="Logo de Pokémon" width="300" height="110" id="Header-Logo">
-                </a>
-                <!--Boton de hamburguesa-->
-                <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
-                    <span class="navbar-toggler-icon"></span>
-                </button>
-                <!--Contenedor de los items de navegación-->
-                <div class="collapse navbar-collapse justify-content-end" id="navbarNav">
-                    <ul class="navbar-nav">
-                        <li class="nav-item">
-                            <a class="nav-link active" aria-current="page" href="./index.html">Home</a>
-                        </li>
-                        <li class="nav-item">
-                            <a class="nav-link" href="#">Equipos</a>
-                        </li>
-                        <li class="nav-item">
-                            <a class="nav-link" href="#">Favoritos</a>
-                        </li>
-                        <li class="nav-item">
-                            <a class="nav-link" href="#">Comparar</a>
-                        </li>
-                    </ul>
-                </div>
-            </div>
-        </nav>
-        <!--Fin del menú de navegación-->
-    </header>
-    <!--Fin del header-->
-    
-    <!--Inicio del contenido principal-->
-    <main>
-        <!--Inicio del Buscador-->
-        <div id="Buscador" class="mt-5 w-75">
-            <div class="input-group mb-3">
-                <!--Input donde recibirá el buscador de pokemons-->
-                <input type="text" class="form-control" placeholder="ID o Nombre del Pokémon" aria-label="ID o Nombre del Pokémon"
-                    aria-describedby="button-addon2" id="search-input">
-                <!--Button para ejecutar una función que realiza una busqueda de pokemons igresados en el input-->
-                <button class="btn btn-outline-secondary" type="submit" aria-label="Buscador" id="button-addon2">
-                    <i class="bi bi-search"></i>
-                </button>
-                <!--Button para ejecutar una función que muestre los pokemons seleccionados como favoritos-->
-                <button class="btn btn-outline-secondary" type="submit" aria-label="Favoritos" id="fav-button">
-                    <i class="bi bi-heart"></i>
-                </button>
-            </div>
-        </div>
-        <!--Fin del Buscador-->
-        
-        
-        <!--Inicio del contenedor de Pokemons-->
-        <div id="Pokemons" class="container-fluid mt-5 mb-5">
-            <!--Aqui se generará el contenido buscado en el buscador o recibido de la api-->
-        </div>
-        <!--Fin del contenedor de Pokemons-->
-    </main>
-    <!--Fin del contenido principal-->
-    
-    <!--Inicio del pie de página-->
-    <footer class="w-100 h-50 m-auto bg-dark">
-        <!--Contenedor del texto-->
-        <div class="m-auto text-center p-5">
-            <p class="text-white">Todos los derechos reservados &copy; 2023 <a href="https://github.com/Ezearevalodev/Pokedex" target="_blank" class="text-decoration-none text-warning">Ezearevalodev</a></p>
-        </div>
-    </footer>
-    <!--Fin del pie de página-->
-
-    <!--Boostrap JS-->
-    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha3/dist/js/bootstrap.bundle.min.js" integrity="sha384-ENjdO4Dr2bkBIFxQpeoTz1HIcje39Wm4jDKdf19U8gI4ddQ3GYNS7NTKfAdVQSZe" crossorigin="anonymous"></script>
-    <!--JS-->
-    <script src="./res/js/main.js"></script>
 </body>
 </html>
