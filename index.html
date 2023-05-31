@@ -30,33 +30,71 @@
     
     <!--Manifiesto para la PWA-->
     <!--Sitio utilizado para la creación del manifiesto (https://www.simicart.com/manifest-generator.html/)-->
-    <link rel="manifest" href="manifest.webmanifest">
+    <!-- <link rel="manifest" href="manifest.webmanifest">
     <meta name="msapplication-TileColor" content="#f5a623">
     <meta name="msapplication-TileImage" content="./res/img/favicon/icon-192x192.webp">
-    <meta name="theme-color" content="#f5a623">
+    <meta name="theme-color" content="#f5a623"> -->
 
     <!-- Custom Styles -->
     <link rel="stylesheet" href="./res/css/styles.css">
 </head>
 <body>
-    <header id="Header">
-        <div id="Header-Content">
-            <img src="./res/img/logo/logo.webp" alt="" loading="lazy">
-        </div>
-        <nav id="Nav">
-            <ul id="Nav-Content">
-                <li class="list-item"><a href="#" class="list-item-link">Inicio 1</a></li>
-                <li class="list-item"><a href="#" class="list-item-link">Inicio 2</a></li>
-                <li class="list-item"><a href="#" class="list-item-link">Inicio 3</a></li>
-                <li class="list-item"><a href="#" class="list-item-link">Inicio 4</a></li>
-            </ul>
-        </nav>
-    </header>
     
+    <!--Inicio del Header-->   
+    <header id="Header">
+        <!--Inicio del Header Content-->   
+        <div id="Header-Content">
+            <div id="Header-Logo">
+                <img src="./res/img/logo/logo.webp" alt="Logo de Pokémon" loading="lazy">
+            </div>
+            <nav id="Nav">
+                <ul id="Nav-Content">
+                    <li class="list-item"><a href="./index.html" class="list-item-link">Pokemons</a></li>
+                    <li class="list-item"><a href="./favoritos.html" class="list-item-link">Favoritos</a></li>
+                    <li class="list-item"><a href="./contacto.html" class="list-item-link">Contacto</a></li>
+                </ul>
+            </nav>
+        </div>
+        <!--Fin del Header Content-->   
+    </header>
+    <!--Fin del Header-->   
+
+    <!--Inicio del Main-->
+    <main id="Main">
+        <section id="Section-1">
+            <article id="Article-1">
+                <header class="Article-Header">
+                    <h1>Welcome to the Pókedex</h1>
+                    <div id="Buscador">
+                        <input type="text" name="buscador" id="buscador_input">
+                        <a href="./favoritos.html">
+                            <button type="button">Favoritos</button>
+                        </a>
+                        <button type="button" id="buscador_button">Buscar</button>
+                    </div>
+                </header>
+                <div class="Article-Main">
+                    <h2>Investiga la pokedex en busca de tus pokemons favoritos</h2>
+                    <div id="Pokemons">
+                        <!--Aquí se mostrará el contenido de las cards obtenidos desde la API-->
+                    </div>
+                </div>
+                <footer class="Article-Footer">
+                    <h3>API Utilizada: <a href="https://pokeapi.co/" target="_blank">Pokedex</a></h3>
+                </footer>
+            </article>
+        </section>
+    </main>
+    <!--Fin del Main-->
+
+    <!--Inicio del Footer-->    
     <footer id="Footer">
         <div id="Footer-Content">
             <p>Enlace directo al repositorio del proyecto <a href="https://github.com/Ezearevalodev/Pokedex" target="_blank">@Ezearevalodev</a></p>
         </div>
     </footer>
+    <!--Fin del Footer-->   
+
+    <script src="./res/js/main.js"></script>
 </body>
 </html>

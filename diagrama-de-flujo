@@ -1,0 +1,9 @@
+PASO 1:
+- Obtener pokemons de la API
+PASO 2:
+- Saber cuantas cards queremos cargar en el index, a traves de está funcion pasaremos la cantidad para la obtención de pokemons mediante un bucle for y el parametro de dicha función
+- Darle funcionalidad al buscador y integrarlo en este paso
+PASO 3:
+- Crear las cards y ponerlas en el documento
+PASO 4:
+- Botones de acción como añadir a favoritos

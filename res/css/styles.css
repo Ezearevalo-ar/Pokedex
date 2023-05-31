@@ -1,4 +1,98 @@
 * {
     margin: 0;
     padding: 0;
+  box-sizing: border-box;
+}
+
+#Pokemons {
+  max-width: 1400px;
+  margin: 0px auto;
+
+  display: flex;
+  flex-wrap: wrap;
+  flex-direction: row;
+  align-items: center;
+  gap: 20px;
+  box-sizing: border-box;
+  padding: 10px;
+}
+
+.Pokemon-Card {
+  flex: 0 0 calc(25% - 20px);
+  height: 350px;
+  width: 190px;
+  background: rgb(236, 236, 236);
+  box-shadow: rgba(0, 0, 0, 0.4) 0px 2px 4px,
+    rgba(0, 0, 0, 0.3) 0px 7px 13px -3px, rgba(0, 0, 0, 0.2) 0px -3px 0px inset;
+  margin: 0 auto;
+
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+}
+
+@media (max-width: 800px) {
+  .Pokemon-Card {
+    flex-basis: calc(
+      50% - 20px
+    ); /* 2 tarjetas por fila en tamaños más pequeños */
+  }
+}
+
+@media (max-width: 600px) {
+  .Pokemon-Card {
+    flex-basis: 100%; /* 1 tarjeta por fila en pantallas pequeñas */
+  }
+}
+
+.Pokemon-Card-Header {
+  height: 50%;
+}
+
+.Pokemon-Card-Main {
+  height: 25%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  text-align: center;
+}
+
+.Pokemon-Card-Footer {
+  height: 20%;
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: center;
+}
+
+.heart-btn {
+  cursor: pointer;
+  border: none;
+  background-color: transparent;
+  height: 0px;
+  width: 0px;
+}
+
+.heart {
+  position: absolute;
+  background: url("../img/sprites/hearth.webp") no-repeat;
+  background-position: left;
+  background-size: 2900%;
+  height: 60px;
+  width: 90px;
+  transform: translate(-50%, -50%);
+}
+
+.heart.heart-active {
+  animation: animate 0.8s steps(28) 1;
+  background-position: right;
+}
+
+@keyframes animate {
+  0% {
+    background-position: left;
+  }
+  100% {
+    background-position: right;
+  }
 }
