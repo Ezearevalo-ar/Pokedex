@@ -79,14 +79,16 @@ main {
 }
 
 .Card-Footer > button {
+  height: 40px;
+  width: 40px;
   border: none;
-  background: none;
+  background-color: transparent;
+  border-bottom: 2px solid #feb605;
 }
 
 .heart-btn {
   cursor: pointer;
   border: none;
-  background-color: transparent;
   height: 0px;
   width: 0px;
 }
@@ -96,11 +98,12 @@ main {
   background: url("../img/sprites/hearth.webp") no-repeat;
   background-position: left;
   background-size: 2900%;
-  height: 60px;
-  width: 90px;
+  height: 70px;
+  width: 70px;
   transform: translate(-50%, -50%);
   border: none;
 }
+
 
 .heart.heart-active {
   animation: animate 0.8s steps(28) 1;
@@ -114,4 +117,21 @@ main {
   100% {
     background-position: right;
   }
+}
+
+.bi-trash{
+  cursor: pointer;
+  font-size: 25px;
+  color: gray;
+}
+
+.bi-trash:hover{
+  color: crimson;
+}
+
+.FondoInfo{
+  width: 100%;
+  height: 100vh;
+  z-index: 0;
+  background-color: rgba(0, 0, 0, 0.3);
 }

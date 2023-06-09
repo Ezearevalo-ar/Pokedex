@@ -1,9 +1,10 @@
 "use strict";
-// Establecemos un nombre para la cache
+
 const cacheName = "pwa-cache-files";
-// En este array guardaremos los recursos que quisiera almacener en el pre caching
 const assets = [
+  "",
   "./index.html",
+  "./error.html",
   "./res/img/logo/logo.webp",
   "https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha3/dist/css/bootstrap.min.css",
   "https://cdn.jsdelivr.net/npm/bootstrap-icons@1.10.5/font/bootstrap-icons.css",
@@ -12,15 +13,11 @@ const assets = [
   "./res/js/main.js",
   "./res/css/styles.css",
 ];
-//Instalación del service worker
+
 self.addEventListener("install", (e) => {
-  //Salteamos el tiempo de espera de activación de forma automatica
   self.skipWaiting();
 
-  //Realizamos el pre caching, es para guardar los recursos necesarios para la carga del sitio
-  //Utilizamos el waitUntil dentro del install para que cuando terminé la instalación ya tengamos nuestros recursos deseados almacenados en el cache del sitio
   e.waitUntil(
-    //Si existe el cache con ese nombre, lo usa y si no fuera asi lo crea de 0
     caches.open(cacheName).then(function (cache) {
       cache.addAll(assets);
     })
@@ -28,24 +25,77 @@ self.addEventListener("install", (e) => {
   console.log("Service Worker Instalado! ", e);
 });
 
-// Activación del Service Worker
 self.addEventListener("activate", (e) => {
   console.log("Service Worker Activado! ", e);
 });
 
-// Capturamos las peticiones de la interfaz
 self.addEventListener("fetch", (e) => {
   console.log("Request", e);
-  //Utilizaremos está propiedad para proveer una respuesta al fetch
+  
   e.respondWith(
-    //Revisamos si el recurso pedido está en el cache del service worker
-    caches.match(e.request).then((response) => {
-      //Si está y tiene contenido lo devolvemos
-      if (response) {
-        return response;
-      }
-      //De no tener contenido se le pide al servidor para que intente obtenerlo nuevamente
-      return fetch(e.request);
-    })
+    caches.match(e.request)
+      .then((response) => {
+        if (response) {
+          return response;
+        }
+
+        let requestToCache = e.request.clone();
+
+        return fetch(requestToCache)
+          .then((res) => {
+            if (!res || res.status !== 200) {
+              console.log("No se pudo obtener respuesta del servidor", res);
+              return res;
+            }
+
+            let responseToCache = res.clone();
+
+            caches.open(cacheName).then((cache) => {
+              cache.put(requestToCache, responseToCache);
+            });
+
+            return res;
+          })
+          .catch((error) => {
+            return fetch("https://dwt3bv-pokedex-pwa.netlify.app/error.html")
+              .then((res) => {
+                return res;
+              });
+          });
+      })
   );
+});
+
+
+//Aquí recibimos las notificaciones de push
+self.addEventListener("push", (e) => {
+  let title = "¡Nuevo Evento Pokémon!";
+  let body = "¡Descubre las sorpresas que tenemos preparadas para ti!";
+  // [{"title":"Nos expandimos","body":"Ahora contamos con aplicación para que nos lleves a todas partes!"}]
+  let options = {
+    body: body,
+    icon: "./res/img/favicon/icon-192x192.png",
+    vibrate: [600, 200, 600],
+    tag: 1,
+    actions: [
+      {
+        action: 1,
+        icon: "./res/img/icons/aceptar.png",
+        title: "¡Accede ahora!",
+      },
+      { action: 2, icon: "./res/img/icons/cerrar.png", title: "No, gracias" },
+    ],
+  };
+
+  e.waitUntil(self.registration.showNotification(title, options));
+});
+
+self.addEventListener("notificationclick", (e) => {
+  if (e.action == 1) {
+    console.log("El usuario quiere acceder");
+    clients.openWindow("https://www.youtube.com/watch?v=llDPm0TzAGI");
+  } else {
+    console.log("El usuario no quiere acceder");
+  }
+  e.notification.close();
 });
