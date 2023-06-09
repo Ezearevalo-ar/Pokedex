@@ -57,7 +57,7 @@ self.addEventListener("fetch", (e) => {
             return res;
           })
           .catch((error) => {
-            return fetch("https://dwt3bv-pokedex-pwa.netlify.app/error.html")
+            return fetch("/error.html")
               .then((res) => {
                 return res;
               });
