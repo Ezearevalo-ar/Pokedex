@@ -1,82 +1,7 @@
 "use strict";
 
 window.addEventListener("DOMContentLoaded", (e) => {
-  //Inicio del registro de nuestro service worker
-  //Primero verificamos si el navegador acepta service worker
-  if ("serviceWorker" in navigator) {
-    navigator.serviceWorker
-      //Si el navegador soporta service worker, le registramos nuestro archivo service worker.js o sw.js en este caso
-      .register("sw.js")
-      .then((registration) => {
-        console.log(registration);
-      })
-      .catch((rejected) => {
-        console.error(rejected);
-      });
-  }
-  //Fin del registro de nuestro service worker
-
-  // Primero, verificamos si el navegador es compatible con las notificaciones
-  if (window.Notification) {
-    // Verificamos si el permiso de notificación no ha sido denegado anteriormente
-    if (Notification.permission !== "denied") {
-      // Esperamos 5 segundos antes de solicitar el permiso
-      setTimeout(() => {
-        Notification.requestPermission().then((permission) => {
-          if (permission === "granted") {
-            console.log("Permiso aceptado");
-          } else {
-            console.log("Permiso denegado");
-          }
-        });
-      }, 3000);
-    }
-  }
-
   const d = document;
-
-  const btnInstall = d.querySelector(".btn-install");
-  let eventInstall;
-
-  window.addEventListener("beforeinstallprompt", (e) => {
-    e.preventDefault();
-    eventInstall = e;
-    if (btnInstall != undefined) {
-      btnInstall.addEventListener("click", InstallApp);
-    }
-  });
-
-  let InstallApp = () => {
-    if (eventInstall != undefined) {
-      eventInstall.prompt();
-      eventInstall.userChoice.then((respuesta) => {
-        if (respuesta.outcome == "accept") {
-          console.log("El usuario acepto instalar la APP!");
-        } else {
-          console.log("El usuario no acepto instalar la APP!");
-        }
-      });
-    }
-  };
-
-  const btnShare = d.querySelector(".btn-share");
-  if (navigator.share) {
-    btnShare.addEventListener("click", (e) => {
-      const shareData = {
-        title: "Pokedex APP",
-        text: "Revisa toda la pokedex en busca de tus pokemons favoritos!",
-        url: "https://dwt3bv-pokedex-pwa.netlify.app/index.html",
-      };
-      navigator
-        .share(shareData)
-        .then((respuesta) => {
-          console.log(respuesta);
-        })
-        .catch((error) => {
-          console.log(error);
-        });
-    });
-  }
 
   //Obtenemos los botones del buscador y el contenido del input que el usuario desea buscar
   const search = d.getElementById("search-input");
@@ -141,7 +66,7 @@ window.addEventListener("DOMContentLoaded", (e) => {
       })
       .catch((error) => {
         console.log(error);
-        ErrorSearch();
+        crearCard(null);
       });
   }
 
@@ -152,153 +77,212 @@ window.addEventListener("DOMContentLoaded", (e) => {
    *
    **/
   function crearCard(data) {
-    //Creamos la card que contendrá a nuestros Pokemons
-    let card = d.createElement("div");
-    //Creamos la sección dentro de la card que contendrá la imagen del Pokemon
-    let cardHeader = d.createElement("div");
-    let cardHeaderImg = d.createElement("img");
-    //Creamos la sección dentro de la card que contendrá el nombre y ID del Pokemon
-    let cardMain = d.createElement("div");
-    let cardMainName = d.createElement("h3");
-    let cardMainID = d.createElement("h4");
-    //Creamos la sección dentro de la card que contendrá los botones de Añadir a Favoritos o Eliminar de Favoritos
-    let cardFooter = d.createElement("div");
-    let cardFooterAddBtn = d.createElement("button");
-    let cardFooterAddBtnIcon = d.createElement("button");
-    let cardFooterRemoveBtn = d.createElement("button");
-
-    //Modificamos al detalle el header de la card y sus contenidos
-    //Card
+    const card = document.createElement("div");
     card.className = "Card";
 
-    //Card Header
+    card.addEventListener("click", () => {
+      // Crear la ventana modal y establecer el nombre del Pokémon en el título
+    });
+  
+    const cardHeader = document.createElement("div");
     cardHeader.className = "Card-Header";
+  
+    const cardHeaderImg = document.createElement("img");
     cardHeaderImg.src = data.sprites.front_default;
-    cardHeaderImg.alt = `Imagen del Pokemon ${data.name}`;
+    cardHeaderImg.alt = `Imagen del Pokémon ${data.name}`;
     cardHeaderImg.width = 96;
     cardHeaderImg.height = 96;
     cardHeaderImg.loading = "lazy";
-
-    //Card Main
+    cardHeader.appendChild(cardHeaderImg);
+  
+    const cardMain = document.createElement("div");
     cardMain.className = "Card-Main";
-    cardMainName.textContent = `${data.name}`;
-    cardMainID.textContent = `#0${data.id}`; //TODO Investigar la forma de añadir el #000 dependiendo el pokemon de forma dinamica
+  
+    const cardMainName = document.createElement("h3");
+    cardMainName.textContent = data.name;
+    cardMain.appendChild(cardMainName);
+  
+    const cardMainID = document.createElement("h4");
+    cardMainID.textContent = `#${data.id}`;
+    cardMain.appendChild(cardMainID);
+  
+    card.appendChild(cardHeader);
+    card.appendChild(cardMain);
+  
+    if (data) {
+      const cardFooter = document.createElement("div");
+      cardFooter.className = "Card-Footer";
+  
+      const cardFooterAddBtn = document.createElement("button");
+      cardFooterAddBtn.className = "heart-btn";
+  
+      const cardFooterAddBtnIcon = document.createElement("button");
+      cardFooterAddBtnIcon.className = "heart";
+  
+      // Verificar si el Pokémon está en el localStorage
+      const pokemonId = data.id.toString();
+      if (localStorage.getItem(pokemonId)) {
+        cardFooterAddBtnIcon.classList.add("heart-active");
+      }
+  
+      cardFooterAddBtnIcon.addEventListener("click", (e) => {
+        cardFooterAddBtnIcon.classList.toggle("heart-active");
+  
+        // Añadir o eliminar el Pokémon del localStorage
+        if (cardFooterAddBtnIcon.classList.contains("heart-active")) {
+          localStorage.setItem(pokemonId, "true");
+          addFavorito(data.id);
+        } else {
+          localStorage.removeItem(pokemonId);
+          removeFavorito(data.id);
+        }
+      });
+      cardFooterAddBtn.appendChild(cardFooterAddBtnIcon);
+  
+      const cardFooterRemoveBtn = document.createElement("button");
+      cardFooterRemoveBtn.className = "bi bi-trash";
+      cardFooterRemoveBtn.ariaLabel = data.id;
+      cardFooterRemoveBtn.addEventListener("click", (e) => {
+        localStorage.removeItem(pokemonId);
+        removeFavorito(data.id);
+        card.remove();
+      });
+  
+      cardFooter.appendChild(cardFooterAddBtn);
+      cardFooter.appendChild(cardFooterRemoveBtn);
+      card.appendChild(cardFooter);
+    }
+  
+    CardContainer.appendChild(card);
+  
+    ConnectionStatus();
 
-    //Card Footer
-    cardFooter.className = "Card-Footer";
-    cardFooterAddBtn.className = "heart-btn";
-    cardFooterAddBtnIcon.className = "heart";
-    //Enviamos el id del Pokemon que queremos añadir a nuestros favoritos y se envía a la función addFavorito que se encarga de todo eso
-    cardFooterAddBtn.addEventListener("click", (e) => {
-      cardFooterAddBtnIcon.classList.toggle("heart-active");
-      addFavorito(data.id);
-    });
-
-    //TODO Solucionar el error de eliminar cards del DOM inicial, posible solución uso de banderitas u otra página aparte para mostrar este contenido
-    //TODO Realizar un recoded del sitio usando PHP y MYSQL, cambiar el formato de las imágenes en webp
-    cardFooterRemoveBtn.className = "bi bi-trash";
-    cardFooterRemoveBtn.ariaLabel = `${data.id}`;
-    //Enviamos el id del Pokemon que queremos eliminar de nuestros favoritos y se envía a la función removeFavoritos que se encarga de todo eso
-    cardFooterRemoveBtn.addEventListener("click", (e) => {
-      removeFavorito(data.id);
-      //Eliminamos la card del Pokemon deseado en el DOM
-      card.remove();
-    });
-
-    //Enviamos cada sección de la card a su respectivo lugar y la card a su contenedor
-    cardHeader.appendChild(cardHeaderImg); //Enviamos la imagen dentro del cardHeader
-    cardMain.appendChild(cardMainName); //Enviamos el nombre del Pokemon dentro del cardMain
-    cardMain.appendChild(cardMainID); //Enviamos el id del Pokemon dentro del cardMain
-    cardFooter.appendChild(cardFooterAddBtn); //Enviamos el Button de añadir a favoritos dentro del cardFooter
-
-    //Enviamos cada sección de la card a su respectivo lugar y la card a su contenedor
-    cardHeader.appendChild(cardHeaderImg); //Enviamos la imagen dentro del cardHeader
-    cardMain.appendChild(cardMainName); //Enviamos el nombre del Pokemon dentro del cardMain
-    cardMain.appendChild(cardMainID); //Enviamos el id del Pokemon dentro del cardMain
-    cardFooterAddBtn.appendChild(cardFooterAddBtnIcon);
-    cardFooter.appendChild(cardFooterAddBtn); //Enviamos el Button de añadir a favoritos dentro del cardFooter
-    cardFooter.appendChild(cardFooterRemoveBtn); //Enviamos el Button de eliminar de favoritos dentro del cardFooter
-
-    card.appendChild(cardHeader); //Integramos el cardHeader final en la card
-    card.appendChild(cardMain); //Integramos el cardMain final en la card
-    card.appendChild(cardFooter); //Integramos el cardFooter final en la card
-    CardContainer.appendChild(card); //Enviamos la card terminada dentro del contenedor que contendrá todas las demas cards
+    /**
+     * Está función se encargará de recibir un parámetro ID y una vez se haga click en un Pokemon especifico será almacenado en el local storge  del sitio el pokemon y sus propiedades, nombre, id, imagen
+     **/
+    function addFavorito(ID) {
+      let favorito = JSON.parse(localStorage.getItem("favoritos")) || [];
+  
+      //TODO Añadir una acción o alerta cuando se agrega a favorito y si ya está agregado
+  
+      // Verificamos si el Pokemon no está incluido en la lista de favoritos del localstorage
+      if (!favorito.includes(ID)) {
+        favorito.push(ID); // Agregamos al localstorage pusheando el ID del Pokemon a la lista de favoritos, el ID se agrega al final del array
+        //TODO hacer que se array guarde los items por orden numérico para lograr una generación en orden de las cards
+        localStorage.setItem("favoritos", JSON.stringify(favorito)); // Guardamos los Pokemons seleccionados como favoritos en el localstorage y lo mandamos como string mediante stringify
+        console.warn("El Pokemon fue agregado a favoritos!");
+      } else {
+        console.error("El Pokemon ya se encuentra en tus favoritos!");
+      }
+    }
+  
+    /**
+     * Está función se encargará de recibir un parámetro ID y una vez se haga click en un Pokemon especifico será eliminado del array que se encuentra en local storage, y a su vez eliminará la card del sitio en la sección de favoritos
+     **/
+    function removeFavorito(ID) {
+      let favorito = JSON.parse(localStorage.getItem("favoritos")) || [];
+  
+      // Verificamos si el Pokemon está incluido en la lista de favoritos del localstorage
+      if (favorito.includes(ID)) {
+        favorito = favorito.filter((favoritoID) => favoritoID !== ID); // Filtramos el localstorage y buscamos el ID deseado para eliminarlo
+        localStorage.setItem("favoritos", JSON.stringify(favorito)); // Actualizamos los Pokemons seleccionados como favoritos en el localstorage
+        console.warn("El Pokemon fue eliminado de favoritos!");
+      } else {
+        console.error("El Pokemon no se encuentra en tus favoritos!");
+      }
   }
 
-  /**
-   * Está función se encargará de recibir un parámetro ID y una vez se haga click en un Pokemon especifico será almacenado en el local storge  del sitio el pokemon y sus propiedades, nombre, id, imagen
-   **/
-  function addFavorito(ID) {
-    let favorito = JSON.parse(localStorage.getItem("favoritos")) || [];
+  }
 
-    //TODO Añadir una acción o alerta cuando se agrega a favorito y si ya está agregado
+  //TODO Verificamos si el navegador acepta service worker
+  if ("serviceWorker" in navigator) {
+    navigator.serviceWorker
+      //Si el navegador soporta service worker, le registramos nuestro archivo service worker.js o sw.js en este caso
+      .register("sw.js")
+      .then((registration) => {
+        console.log(registration);
+      })
+      .catch((rejected) => {
+        console.error(rejected);
+      });
+  }
 
-    // Verificamos si el Pokemon no está incluido en la lista de favoritos del localstorage
-    if (!favorito.includes(ID)) {
-      favorito.push(ID); // Agregamos al localstorage pusheando el ID del Pokemon a la lista de favoritos, el ID se agrega al final del array
-      //TODO hacer que se array guarde los items por orden numérico para lograr una generación en orden de las cards
-      localStorage.setItem("favoritos", JSON.stringify(favorito)); // Guardamos los Pokemons seleccionados como favoritos en el localstorage y lo mandamos como string mediante stringify
-      console.warn("El Pokemon fue agregado a favoritos!");
-    } else {
-      console.error("El Pokemon ya se encuentra en tus favoritos!");
+  //TODO Verificamos si el navegador es compatible con las notificaciones
+  if (window.Notification) {
+    // Verificamos si el permiso de notificación no ha sido denegado anteriormente
+    if (Notification.permission !== "denied") {
+      // Esperamos 5 segundos antes de solicitar el permiso
+      setTimeout(() => {
+        Notification.requestPermission().then((permission) => {
+          if (permission === "granted") {
+            console.log("Permiso aceptado");
+          } else {
+            console.log("Permiso denegado");
+          }
+        });
+      }, 3000);
     }
   }
 
-  /**
-   * Está función se encargará de recibir un parámetro ID y una vez se haga click en un Pokemon especifico será eliminado del array que se encuentrá en local storge, y a su vez eliminará la card del sitio en la sección de favoritos
-   **/
-  function removeFavorito(ID) {
-    let favorito = JSON.parse(localStorage.getItem("favoritos")) || [];
+  //TODO Instalación (El usuario debe tener la posibilidad de instalar la pwa)
+  const btnInstall = d.querySelector(".btn-install");
+  let eventInstall;
 
-    // Verificamos si el Pokemon está incluido en la lista de favoritos del localstorage
-    if (favorito.includes(ID)) {
-      favorito = favorito.filter((favoritoID) => favoritoID !== ID); // Filtramos el localstorage y buscamos el ID deseado para eliminarlo
-      localStorage.setItem("favoritos", JSON.stringify(favorito)); // Actualizamos los Pokemons seleccionados como favoritos en el localstorage
-      console.warn("El Pokemon fue eliminado de favoritos!");
-    } else {
-      console.error("El Pokemon no se encuentra en tus favoritos!");
+  window.addEventListener("beforeinstallprompt", (e) => {
+    e.preventDefault();
+    eventInstall = e;
+    if (btnInstall != undefined) {
+      btnInstall.addEventListener("click", InstallApp);
     }
-  }
+  });
 
-  /**
-   *
-   * En está función nos encargamos de crear una card, distinta con ciertas cosas no tan dinamicas sin utilizar la API para mostrarla como mensaje de error al resultado de busqueda
-   * //TODO Integrar una función mas dinámica, mensajes de error, de agregado a favoritos, de eliminado, si ya existe en favoritos y si ya fue eliminado
-   *
-   **/
-  function ErrorSearch() {
-    //Creamos la card que contendrá a nuestros Pokemons
-    let card = d.createElement("div");
-    //Creamos la sección dentro de la card que contendrá la imagen del pokemon
-    let cardHeader = d.createElement("div");
-    let cardHeaderImg = d.createElement("img");
-    //Creamos la sección dentro de la card que contendrá el nombre y ID del pokemon
-    let cardMain = d.createElement("div");
-    let cardMainName = d.createElement("h3");
-    let cardMainID = d.createElement("h4");
+  let InstallApp = () => {
+    if (eventInstall != undefined) {
+      eventInstall.prompt();
+      eventInstall.userChoice.then((respuesta) => {
+        if (respuesta.outcome == "accept") {
+          console.log("El usuario acepto instalar la APP!");
+        } else {
+          console.log("El usuario no acepto instalar la APP!");
+        }
+      });
+    }
+  };
 
-    //Modificamos al detalle el header de la card y sus contenidos
-    //Card
-    card.className = "Card";
+  //TODO Offline / Online (Detectar el estado de la conexión y realizar algún cambio estético)
+  let ConnectionStatus = () => {
+    console.log("Estado de la conexión: ", navigator.onLine);
+    let connectionText = d.querySelector("#connectionStatus");
 
-    //Card Header
-    cardHeader.className = "Card-Header";
-    cardHeaderImg.src = "./res/img/error/Error404.webp";
-    cardHeaderImg.alt = "Error al encontrar el pokemon en la busqueda";
-    cardHeaderImg.loading = "lazy";
+    if (!navigator.onLine) {
+      connectionText.innerHTML = "Offline";
+      connectionText.style.color = "red";
+    } else {
+      connectionText.innerHTML = "Online";
+      connectionText.style.color = "green";
+    }
+  };
 
-    //Card Main
-    cardMain.className = "Card-Main";
-    cardMainName.textContent = "Pokemon no existente!";
-    cardMainID.textContent = "Numero: #404";
+  window.addEventListener("online", ConnectionStatus);
+  window.addEventListener("offline", ConnectionStatus);
 
-    //Enviamos cada sección de la card a su respectivo lugar y la card a su contenedor
-    cardHeader.appendChild(cardHeaderImg); //Enviamos la imagen dentro del cardHeader
-    cardMain.appendChild(cardMainName); //Enviamos el nombre del pokemon dentro del cardMain
-    cardMain.appendChild(cardMainID); //Enviamos el id del pokemon dentro del cardMain
-
-    card.appendChild(cardHeader); //Integramos el cardHeader final en la card
-    card.appendChild(cardMain); //Integramos el cardMain final en la card
-    CardContainer.appendChild(card); //Enviamos la card terminada dentro del contenedor que contendrá todas las demas cards
+  //TODO Share (Implementar posibilidad de compartir contenidos).
+  const btnShare = d.querySelector(".btn-share");
+  if (navigator.share) {
+    btnShare.addEventListener("click", (e) => {
+      const shareData = {
+        title: "Pokedex APP",
+        text: "Revisa toda la pokedex en busca de tus Pokemons favoritos!",
+        url: "https://dwt3bv-pokedex-pwa.netlify.app/index.html",
+      };
+      navigator
+        .share(shareData)
+        .then((respuesta) => {
+          console.log(respuesta);
+        })
+        .catch((error) => {
+          console.log(error);
+        });
+    });
   }
 });

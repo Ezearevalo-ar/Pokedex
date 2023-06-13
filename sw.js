@@ -22,15 +22,15 @@ self.addEventListener("install", (e) => {
       cache.addAll(assets);
     })
   );
-  console.log("Service Worker Instalado! ", e);
+  // console.log("Service Worker Instalado! ", e);
 });
 
 self.addEventListener("activate", (e) => {
-  console.log("Service Worker Activado! ", e);
+  // console.log("Service Worker Activado! ", e);
 });
 
 self.addEventListener("fetch", (e) => {
-  console.log("Request", e);
+  // console.log("Request", e);
   
   e.respondWith(
     caches.match(e.request)
@@ -44,7 +44,7 @@ self.addEventListener("fetch", (e) => {
         return fetch(requestToCache)
           .then((res) => {
             if (!res || res.status !== 200) {
-              console.log("No se pudo obtener respuesta del servidor", res);
+              // console.log("No se pudo obtener respuesta del servidor", res);
               return res;
             }
 
@@ -92,10 +92,10 @@ self.addEventListener("push", (e) => {
 
 self.addEventListener("notificationclick", (e) => {
   if (e.action == 1) {
-    console.log("El usuario quiere acceder");
+    // console.log("El usuario quiere acceder");
     clients.openWindow("https://www.youtube.com/watch?v=llDPm0TzAGI");
   } else {
-    console.log("El usuario no quiere acceder");
+    // console.log("El usuario no quiere acceder");
   }
   e.notification.close();
 });

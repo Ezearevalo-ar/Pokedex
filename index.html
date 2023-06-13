@@ -8,7 +8,7 @@
 
     <!-- Metaetiquetas adicionales -->
     <!-- Meta Tags Generated via https://www.opengraph.xyz -->
-    <meta name="description" content="Bienvenido a la Pokédex. Descubre y explora información sobre los pokémons.">
+    <meta name="description" content="Bienvenido a la Pokédex. Descubre y explora información sobre los Pokemons.">
     <meta name="keywords" content="Pokédex, Pokémon, juegos, información, tarjetas, favoritos">
     <meta name="author" content="Ezequiel Thomas Arevalo">
     
@@ -16,7 +16,7 @@
     <meta property="og:url" content="https://dwt3bv-pokedex-pwa.netlify.app/">
     <meta property="og:type" content="website">
     <meta property="og:title" content="Pokédex">
-    <meta property="og:description" content="Bienvenido a la Pokédex. Descubre y explora información sobre los pokémons.">
+    <meta property="og:description" content="Bienvenido a la Pokédex. Descubre y explora información sobre los Pokemons.">
     <meta property="og:image" content="">
 
     <!-- Twitter Meta Tags -->
@@ -24,7 +24,7 @@
     <meta property="twitter:domain" content="dwt3bv-pokedex-pwa.netlify.app">
     <meta property="twitter:url" content="https://dwt3bv-pokedex-pwa.netlify.app/">
     <meta name="twitter:title" content="Pokédex">
-    <meta name="twitter:description" content="Bienvenido a la Pokédex. Descubre y explora información sobre los pokémons.">
+    <meta name="twitter:description" content="Bienvenido a la Pokédex. Descubre y explora información sobre los Pokemons.">
     <meta name="twitter:image" content="">
 
     <!--Favicon-->
@@ -72,7 +72,7 @@
                 <a class="navbar-brand" href="./index.html">
                     <img src="./res/img/logo/logo.webp" alt="Logo de Pokémon" width="300" height="110" id="Header-Logo">
                 </a>
-                <!--Boton de hamburguesa-->
+                <!--Botón de hamburguesa-->
                 <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
                     <span class="navbar-toggler-icon"></span>
                 </button>
@@ -96,17 +96,20 @@
     
     <!--Inicio del contenido principal-->
     <main>
+        <div id="Connection">
+            <p>Estatus: <span id="connectionStatus"></span></p>
+        </div>
         <!--Inicio del Buscador-->
         <div id="Buscador" class="mt-5 w-75">
             <div class="input-group mb-3">
-                <!--Input donde recibirá el buscador de pokemons-->
+                <!--Input donde recibirá el buscador de Pokemons-->
                 <input type="text" class="form-control" placeholder="ID o Nombre del Pokémon" aria-label="ID o Nombre del Pokémon"
                     aria-describedby="button-addon2" id="search-input">
-                <!--Button para ejecutar una función que realiza una busqueda de pokemons igresados en el input-->
+                <!--Button para ejecutar una función que realiza una búsqueda de Pokemons ingresados en el input-->
                 <button class="btn btn-outline-secondary" type="submit" aria-label="Buscador" id="button-addon2">
                     <i class="bi bi-search"></i>
                 </button>
-                <!--Button para ejecutar una función que muestre los pokemons seleccionados como favoritos-->
+                <!--Button para ejecutar una función que muestre los Pokemons seleccionados como favoritos-->
                 <button class="btn btn-outline-secondary" type="submit" aria-label="Favoritos" id="fav-button">
                     <i class="bi bi-heart"></i>
                 </button>
@@ -117,7 +120,7 @@
         
         <!--Inicio del contenedor de Pokemons-->
         <div id="Pokemons" class="container-fluid mt-5 mb-5">
-            <!--Aqui se generará el contenido buscado en el buscador o recibido de la api-->
+            <!--Aquí se generará el contenido buscado en el buscador o recibido de la api-->
         </div>
         <!--Fin del contenedor de Pokemons-->
     </main>
@@ -132,7 +135,7 @@
     </footer>
     <!--Fin del pie de página-->
 
-    <!--Boostrap JS-->
+    <!--Bootstrap JS-->
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha3/dist/js/bootstrap.bundle.min.js" integrity="sha384-ENjdO4Dr2bkBIFxQpeoTz1HIcje39Wm4jDKdf19U8gI4ddQ3GYNS7NTKfAdVQSZe" crossorigin="anonymous"></script>
     <!--JS-->
     <script src="./res/js/main.js"></script>
